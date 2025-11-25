@@ -6,11 +6,11 @@
 /*   By: giborges <giborges@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 07:28:14 by giborges          #+#    #+#             */
-/*   Updated: 2025/11/24 11:14:55 by giborges         ###   ########.fr       */
+/*   Updated: 2025/11/25 17:21:08 by giborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
 static int	ft_print_base(unsigned long n, int base, int upper)
 {
@@ -19,7 +19,9 @@ static int	ft_print_base(unsigned long n, int base, int upper)
 	int		i;
 	int		len;
 
-	digits = (upper ? "0123456789ABCDEF" : "0123456789abcdef");
+	digits = "0123456789abcdef";
+	if (upper)
+		digits = "0123456789ABCDEF";
 	if (n == 0)
 		return (ft_putchar_fd('0', 1), 1);
 	i = 0;
@@ -49,7 +51,7 @@ static int	ft_print_int(long n)
 	return (count + ft_print_base((unsigned long)n, 10, 0));
 }
 
-static int	ft_spec(char c, va_list args)
+static int	ft_strspec(char c, va_list args)
 {
 	char	*s;
 
@@ -60,9 +62,12 @@ static int	ft_spec(char c, va_list args)
 		s = va_arg(args, char *);
 		if (!s)
 			s = "(null)";
-		ft_putstr_fd(s, 1);
-		return (ft_strlen(s));
 	}
+	return (0);
+}
+
+static int	ft_numspec(char c, va_list args)
+{
 	if (c == 'd' || c == 'i')
 		return (ft_print_int(va_arg(args, int)));
 	if (c == 'u')
@@ -74,8 +79,6 @@ static int	ft_spec(char c, va_list args)
 		ft_putstr_fd("0x", 1);
 		return (2 + ft_print_base(va_arg(args, unsigned long), 16, 0));
 	}
-	if (c == '%')
-		return (ft_putchar_fd('%', 1), 1);
 	return (0);
 }
 
