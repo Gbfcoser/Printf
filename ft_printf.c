@@ -6,7 +6,7 @@
 /*   By: giborges <giborges@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 07:28:14 by giborges          #+#    #+#             */
-/*   Updated: 2025/11/25 17:21:08 by giborges         ###   ########.fr       */
+/*   Updated: 2025/12/02 14:30:37 by giborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,10 @@ int	ft_printf(const char *format, ...)
 	while (format[i])
 	{
 		if (format[i] == '%' && format[i + 1])
-			count += ft_spec(format[++i], args);
+		{
+			count += ft_numspec(format[++i], args);
+			count += ft_strspec(format[i], args);
+		}
 		else
 		{
 			ft_putchar_fd(format[i], 1);
