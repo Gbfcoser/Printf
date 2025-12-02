@@ -6,7 +6,7 @@
 #    By: giborges <giborges@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/10 18:09:38 by giborges          #+#    #+#              #
-#    Updated: 2025/12/02 12:55:13 by giborges         ###   ########.fr        #
+#    Updated: 2025/12/02 16:51:55 by giborges         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = 	cc
 
 CFLAGS = -Wall -Wextra -Werror -Ilibft
 
-SRC = ft_printf.c 
+SRC = 	ft_printf.c ft_organize.c 
 
 LIBFT_SRCS = libft/ft_bzero.c libft/ft_memset.c libft/ft_atoi.c libft/ft_calloc.c libft/ft_isalnum.c libft/ft_itoa.c \
 libft/ft_isalpha.c libft/ft_isascii.c libft/ft_isdigit.c libft/ft_isprint.c libft/ft_memchr.c libft/ft_memcmp.c \
@@ -27,7 +27,7 @@ libft/ft_putnbr_fd.c libft/ft_split.c libft/ft_strmapi.c libft/ft_strnstr.c libf
 libft/ft_lstnew.c libft/ft_lstadd_front.c libft/ft_lstadd_back.c libft/ft_lstclear.c libft/ft_lstdelone.c\
 libft/ft_lstiter.c libft/ft_lstlast.c libft/ft_lstsize.c libft/ft_lstmap.c \
 
-OBJ = $(SRC:%.c=%.o) $(LIBFT_SRCS:%.c=%.o)
+OBJ = $(SRC:.c=.o) $(LIBFT_SRCS:.c=.o)
 
 all: $(NAME)
 

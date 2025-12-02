@@ -1,3 +1,4 @@
+/*
 #include "ft_printf.h"
 #include <limits.h>
 #include <stdio.h>
@@ -237,7 +238,7 @@ int	main(void)
 	ft_printf("OUTPUT FT = %d\n", output_FT);
 
 	//////////////////////////////////
-	//				%d			   //
+	//				%d				//
 	/////////////////////////////////
 	ft_printf("------------%%d------------\n");
 	ft_printf("POSITIVE NUMBERS----------\n");
@@ -639,11 +640,13 @@ int	main(void)
 	ft_printf("OUTPUT FT = %d\n", output_FT);
 
 	ft_printf("--------------------------------MIX-------------------------------\n");
-	output_OG = printf("OG -> %%%s %%%s %%%d %clbum \t 520 in hexadecimal is %x\n", "string1", "string2", 18, 'a', 520);
-	output_FT = ft_printf("FT -> %%%s %%%s %%%d %clbum \t 520 in hexadecimal is %x\n", "string1", "string2", 18, 'a', 520);
+	output_OG = printf("OG -> %%%s %%%s %%%d %clbum \t 520 in hexadecimal is
+			%x\n", "string1", "string2", 18, 'a', 520);
+	output_FT = ft_printf("FT -> %%%s %%%s %%%d %clbum \t 520 in hexadecimal is
+			%x\n", "string1", "string2", 18, 'a', 520);
 	printf("OUTPUT OG = %d\n", output_OG);
 	ft_printf("OUTPUT FT = %d\n", output_FT);
 
 	ft_printf("\n");
 	return (0);
-}
+} */

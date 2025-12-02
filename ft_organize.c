@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_organize.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: giborges <giborges@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/25 17:04:26 by giborges          #+#    #+#             */
-/*   Updated: 2025/12/02 17:18:12 by giborges         ###   ########.fr       */
+/*   Created: 2025/12/02 16:39:47 by giborges          #+#    #+#             */
+/*   Updated: 2025/12/02 17:29:26 by giborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft_printf.h"
 
-# include "libft/libft.h"
-# include <stdarg.h>
-# include <stddef.h>
-# include <stdio.h>
-# include <unistd.h>
-
-int	ft_printf(const char *format, ...);
-int	ft_print_base(unsigned long n, int base, int upper);
-int	ft_print_int(long n);
-int	ft_strspec(char c, va_list args);
-int	ft_numspec(char c, va_list args);
-int	ft_organize(char c, va_list args);
-
-#endif
+int	ft_organize(char c, va_list args)
+{
+	if (c == 'c' || c == 'C' || c == 's' || c == 'S')
+		return (ft_strspec(c, args));
+	if (c == 'd' || c == 'i' || c == 'u' || c == 'x' || c == 'X' || c == 'p')
+		return (ft_numspec(c, args));
+	return (0);
+}

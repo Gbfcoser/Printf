@@ -6,13 +6,13 @@
 /*   By: giborges <giborges@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 07:28:14 by giborges          #+#    #+#             */
-/*   Updated: 2025/12/02 14:30:37 by giborges         ###   ########.fr       */
+/*   Updated: 2025/12/02 17:26:26 by giborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_print_base(unsigned long n, int base, int upper)
+int	ft_print_base(unsigned long n, int base, int upper)
 {
 	char	*digits;
 	char	buf[65];
@@ -36,7 +36,7 @@ static int	ft_print_base(unsigned long n, int base, int upper)
 	return (len);
 }
 
-static int	ft_print_int(long n)
+int	ft_print_int(long n)
 {
 	int	count;
 
@@ -51,23 +51,33 @@ static int	ft_print_int(long n)
 	return (count + ft_print_base((unsigned long)n, 10, 0));
 }
 
-static int	ft_strspec(char c, va_list args)
+int	ft_strspec(char c, va_list args)
 {
 	char	*s;
+	int		len;
 
+	len = 0;
 	if (c == 'c')
+	{
 		return (ft_putchar_fd(va_arg(args, int), 1), 1);
+	}
 	if (c == 's')
 	{
 		s = va_arg(args, char *);
 		if (!s)
 			s = "(null)";
+		ft_putstr_fd(s, 1);
+		while (s[len])
+			len++;
+		return (len);
 	}
 	return (0);
 }
 
-static int	ft_numspec(char c, va_list args)
+int	ft_numspec(char c, va_list args)
 {
+	unsigned int long	ptr;
+
 	if (c == 'd' || c == 'i')
 		return (ft_print_int(va_arg(args, int)));
 	if (c == 'u')
@@ -76,8 +86,14 @@ static int	ft_numspec(char c, va_list args)
 		return (ft_print_base(va_arg(args, unsigned int), 16, c == 'X'));
 	if (c == 'p')
 	{
+		ptr = va_arg(args, unsigned long);
+		if (!ptr)
+		{
+			ft_putstr_fd("(nil)", 1);
+			return (5);
+		}
 		ft_putstr_fd("0x", 1);
-		return (2 + ft_print_base(va_arg(args, unsigned long), 16, 0));
+		return (2 + ft_print_base(ptr, 16, 0));
 	}
 	return (0);
 }
@@ -97,8 +113,14 @@ int	ft_printf(const char *format, ...)
 	{
 		if (format[i] == '%' && format[i + 1])
 		{
-			count += ft_numspec(format[++i], args);
-			count += ft_strspec(format[i], args);
+			i++;
+			if (format[i] == '%')
+			{
+				ft_putchar_fd('%', 1);
+				count++;
+			}
+			else
+				count += ft_organize(format[i], args);
 		}
 		else
 		{
